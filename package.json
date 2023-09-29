@@ -1,0 +1,11 @@
+{
+  "devDependencies": {
+    "servor": "^4.0.2",
+    "tailwind": "^4.0.0"
+  },
+  "name": "video-sense",
+  "scripts": {
+    "start": "servor --reload --port=8080"
+  },
+  "version": "0.0.0"
+}

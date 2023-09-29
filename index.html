@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Video Sense</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="flex flex-col items-center h-screen justify-center bg-slate-900 text-slate-50">
+
+  <div class="grid gap-6 max-w-2xl mx-auto">
+    <h1 class="text-4xl text-center font-thin text-slate-500" style="text-shadow: 2px 4px black;">Video Sense</h1>
+    <canvas class="w-full" id="canvasEl"></canvas>
+    <input type="file" accept="video/*" onchange="start(this.files[0])">
+  </div>
+  <script type="module" src='main.js'></script>
+
+</body>
+
+</html>
