@@ -13,9 +13,15 @@
 
   <div class="grid gap-6 max-w-2xl mx-auto">
     <h1 class="text-4xl text-center font-thin text-slate-500" style="text-shadow: 2px 4px black;">Video Sense</h1>
-    <canvas class="w-full" id="canvasEl"></canvas>
-    <input type="file" accept="video/*" onchange="start(this.files[0])">
+    <canvas class="max-w-full mx-auto" id="canvasEl"></canvas>
+    <input type="file" accept="video/*, image/*" />
+    <div id="loading" class="top-0 left-0 fixed w-screen h-screen flex flex-col items-center justify-center bg-black/50">
+      <img src="assets/loading.svg" />
+    </div>
   </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"> </script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"> </script>
   <script type="module" src='main.js'></script>
 
 </body>
