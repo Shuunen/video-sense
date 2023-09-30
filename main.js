@@ -1,14 +1,19 @@
 // below code inspired by https://github.com/josephrocca/getVideoFrames.js
 'use strict'
+// @ts-ignore
 import { sleep } from "https://cdn.skypack.dev/shuutils@7.3.2"
+// @ts-ignore
 import getVideoFrames from "https://deno.land/x/get_video_frames@v0.0.10/mod.js"
 
-const loadingElement = document.querySelector('#loading')
+const loadingElement = document.querySelector('div#loading') ?? document.createElement('div')
 const fileInput = document.querySelector('input[type="file"]')
+if (!fileInput) throw new Error('no file input found')
+// @ts-ignore
 const context = canvasEl.getContext("2d")
 const fontSize = 40
 const minScore = 0.1
-let cocoModel = undefined
+/** @type {CocoModel} */
+let cocoModel = { isLoaded: false, detect: () => Promise.reject(new Error('coco model not loaded')) }
 let frameCount = 0
 
 /**
@@ -16,7 +21,7 @@ let frameCount = 0
  * @returns {void}
  */
 function onFrameConfig (config) {
-  console.log("config", config)
+  console.log("on frame config", config)
   frameCount = 0
   context.canvas.width = config.codedWidth
   context.canvas.height = config.codedHeight
@@ -49,7 +54,7 @@ function drawPrediction (prediction) {
  * @param {CocoPrediction[]} predictions 
  */
 function onPredictions (predictions) {
-  console.log('coco detected :', (predictions.map(p => p.class) || ['nothing']).join(', '))
+  console.log('on predictions :', (predictions.map(p => p.class) || ['nothing']).join(', '))
   context.font = fontSize + 'px Arial'
   predictions.forEach(drawPrediction)
 }
@@ -67,10 +72,11 @@ async function detectCanvasContent () {
  */
 async function onFrame (frame) {
   if (frameCount !== 0) return frame.close()
+  // @ts-ignore
   context.drawImage(frame, 0, 0, canvasEl.width, canvasEl.height)
   await sleep(10)
   frame.close()
-  if (frameCount === 0) detectCanvasContent(frame)
+  if (frameCount === 0) detectCanvasContent()
   frameCount++
 }
 
@@ -80,15 +86,24 @@ function onFrameFinish () {
 }
 
 /**
+ * @param {File} [file] the file
+ * @returns {string} the url
+ */
+function getUrlForFile (file) {
+  if (file === undefined) throw new Error('file is undefined, cannot get url')
+  return URL.createObjectURL(/** @type {Blob} */(file))
+}
+
+/**
  * @param {File} [file] the video file
  * @param {string} [url] the video url
- * @returns {void}
+ * @returns {Promise<void>}
  */
 async function onVideoSelection (file, url) {
-  const videoUrl = url ?? URL.createObjectURL(file)
+  const videoUrl = url ?? getUrlForFile((file))
   console.log('on video selection, extracting frames from :', videoUrl)
   await getVideoFrames({ videoUrl, onFrame, onConfig: onFrameConfig, onFinish: onFrameFinish, })
-  if (!url) URL.revokeObjectURL(file) // revoke URL to prevent memory leak
+  if (!url) URL.revokeObjectURL(videoUrl)
 }
 
 /**
@@ -97,7 +112,7 @@ async function onVideoSelection (file, url) {
  * @returns {void}
  */
 function onImageSelection (file, url) {
-  const imageUrl = url ?? URL.createObjectURL(file)
+  const imageUrl = url ?? getUrlForFile(file)
   console.log('on image selection, detecting content from :', imageUrl)
   const image = new Image()
   image.src = imageUrl
@@ -107,27 +122,30 @@ function onImageSelection (file, url) {
     context.drawImage(image, 0, 0, image.naturalWidth, image.naturalHeight)
     detectCanvasContent()
   }
-  if (!url) URL.revokeObjectURL(file) // revoke URL to prevent memory leak
+  if (!url) URL.revokeObjectURL(imageUrl)
 }
 
 fileInput.addEventListener('change', (/** @type {Event} */ event) => {
   console.log('file selected :', event)
-  const file = event.target.files[0]
+  // @ts-ignore
+  const file = event.target?.files[0]
   if (!file) throw new Error('no file selected')
   if (file.type.startsWith('video')) onVideoSelection(file)
   else if (file.type.startsWith('image')) onImageSelection(file)
   else throw new Error('unsupported file type')
 })
 
-cocoSsd.load().then(model => {
+// @ts-ignore
+cocoSsd.load().then((/** @type CocoModel */ model) => {
   cocoModel = model
   console.log('coco model loaded')
+  // @ts-ignore
   loadingElement.style.display = 'none'
 })
 
 /**
  * @typedef {Object} CocoPrediction
- * @property {number[]} bbox the bounding box like [x, y, width, height]
+ * @property {[number, number]} bbox the bounding box like [x, y, width, height]
  * @property {string} class the detected object class like "person", "bird", ...
  * @property {number} score the confidence score like 0.2 (low confidence) or 0.9 (high confidence)
  */
@@ -136,4 +154,10 @@ cocoSsd.load().then(model => {
  * @typedef {Object} VideoFrameConfig
  * @property {number} codedHeight the video frame height
  * @property {number} codedWidth the video frame width
+ */
+
+/**
+ * @typedef {Object} CocoModel
+ * @property {(image: ImageData | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement, minConfidence?: number, maxResults?: number) => Promise<CocoPrediction[]>} detect
+ * @property {boolean} isLoaded indicates if the model is loaded
  */

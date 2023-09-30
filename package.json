@@ -1,11 +1,21 @@
 {
+  "dependencies": {
+    "shuutils": "7.3",
+    "ts-node": "10.9",
+    "typescript": "5.2"
+  },
   "devDependencies": {
-    "servor": "^4.0.2",
-    "tailwind": "^4.0.0"
+    "@types/node": "20",
+    "repo-check": "1.33",
+    "servor": "4",
+    "tailwindcss": "3",
+    "ts-node-dev": "2"
   },
   "name": "video-sense",
   "scripts": {
-    "start": "servor --reload --port=8080"
+    "dev": "ts-node-dev --respawn --transpile-only cli.ts",
+    "start": "ts-node --transpile-only cli.ts",
+    "start:web": "servor --reload --port=8080"
   },
   "version": "0.0.0"
 }
