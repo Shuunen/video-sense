@@ -12,8 +12,7 @@ if (!fileInput) throw new Error('no file input found')
 const context = canvasEl.getContext("2d")
 const fontSize = 40
 const minScore = 0.1
-/** @type {CocoModel} */
-let cocoModel = { isLoaded: false, detect: () => Promise.reject(new Error('coco model not loaded')) }
+let /** @type {CocoModel|undefined} */ cocoModel
 let frameCount = 0
 
 /**
@@ -142,22 +141,3 @@ cocoSsd.load().then((/** @type CocoModel */ model) => {
   // @ts-ignore
   loadingElement.style.display = 'none'
 })
-
-/**
- * @typedef {Object} CocoPrediction
- * @property {[number, number]} bbox the bounding box like [x, y, width, height]
- * @property {string} class the detected object class like "person", "bird", ...
- * @property {number} score the confidence score like 0.2 (low confidence) or 0.9 (high confidence)
- */
-
-/**
- * @typedef {Object} VideoFrameConfig
- * @property {number} codedHeight the video frame height
- * @property {number} codedWidth the video frame width
- */
-
-/**
- * @typedef {Object} CocoModel
- * @property {(image: ImageData | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement, minConfidence?: number, maxResults?: number) => Promise<CocoPrediction[]>} detect
- * @property {boolean} isLoaded indicates if the model is loaded
- */

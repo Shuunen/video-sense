@@ -1,21 +1,32 @@
 {
   "dependencies": {
+    "@tensorflow-models/coco-ssd": "2.2",
+    "@tensorflow/tfjs-node": "4.11",
     "shuutils": "7.3",
     "ts-node": "10.9",
     "typescript": "5.2"
   },
   "devDependencies": {
+    "@the2ndfloorguy/nodekeeper": "1",
     "@types/node": "20",
     "repo-check": "1.33",
     "servor": "4",
     "tailwindcss": "3",
     "ts-node-dev": "2"
   },
+  "engines": {
+    "node": "18.16.1"
+  },
   "name": "video-sense",
+  "peerDependencies": {
+    "@tensorflow/tfjs-backend-cpu": "*",
+    "@tensorflow/tfjs-backend-webgl": "*"
+  },
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only cli.ts",
-    "start": "ts-node --transpile-only cli.ts",
+    "dev": "nodekeeper cli.js",
+    "start": "node cli.js",
     "start:web": "servor --reload --port=8080"
   },
+  "type": "module",
   "version": "0.0.0"
 }
