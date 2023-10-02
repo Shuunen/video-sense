@@ -5,8 +5,8 @@ import { sleep } from "https://cdn.skypack.dev/shuutils@7.3.2"
 // @ts-ignore
 import getVideoFrames from "https://deno.land/x/get_video_frames@v0.0.10/mod.js"
 
-const loadModelButton = document.querySelector('button')
-if (!loadModelButton) throw new Error('no load model button found')
+const worker = new Worker('worker.js', { type: 'module' })
+
 const /** @type HTMLDivElement|null */ loadingElement = document.querySelector('div#loading')
 const formElement = document.querySelector('form')
 if (!formElement) throw new Error('no form element found')
@@ -19,7 +19,6 @@ if (!textInput) throw new Error('no text input found')
 const context = canvasEl.getContext("2d")
 let fontSize = 40
 const minScore = 0.3
-let /** @type {CocoModel|undefined} */ cocoModel
 let frameCount = 0
 
 /**
@@ -69,11 +68,9 @@ function onPredictions (predictions) {
 }
 
 async function detectCanvasContent () {
-  console.log("detecting canvas content...")
-  if (cocoModel === undefined) throw new Error('coco model not loaded')
-  // can detect : tf.Tensor3D | ImageData | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement
-  const predictions = await cocoModel.detect(context.canvas, undefined, minScore)
-  onPredictions(predictions)
+  context.canvas.toBlob((/** @type {Blob} */blob) => {
+    worker.postMessage({ blob, minScore, type: "predict" })
+  })
 }
 
 /**
@@ -144,15 +141,6 @@ function toggleDisplay (element) {
   element.style.display = element.style.display === 'none' ? '' : 'none'
 }
 
-async function loadCoco () {
-  // @ts-ignore
-  cocoModel = await cocoSsd.load()
-  console.log('coco model loaded')
-  // onImageSelection(undefined, 'https://i.imgflip.com/80xkm1.jpg')
-  onVideoSelection(undefined, 'https://i.imgur.com/NUyttbn.mp4')
-  toggleDisplay(loadingElement)
-  toggleDisplay(formElement)
-}
 
 fileInput.addEventListener('change', (/** @type {Event} */ event) => {
   console.log('file selected :', event)
@@ -172,9 +160,14 @@ textInput.addEventListener('change', (/** @type {Event} */ event) => {
   onImageSelection(undefined, text)
 })
 
-loadModelButton.addEventListener('click', async () => {
-  toggleDisplay(loadingElement)
-  toggleDisplay(loadModelButton)
-  await sleep(500)
-  await loadCoco()
+worker.addEventListener('message', async (/** @type {MessageEvent} */ event) => {
+  console.log('message from worker :', event.data)
+  if (event.data.type === 'ready') {
+    toggleDisplay(loadingElement)
+    onVideoSelection(undefined, 'https://i.imgur.com/NUyttbn.mp4')
+  }
+  else if (event.data.type === 'predictions') {
+    onPredictions(event.data.predictions)
+  }
+  else console.warn('unknown message type :', event.data.type)
 })

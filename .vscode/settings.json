@@ -3,5 +3,6 @@
     "demux",
     "mkvdemuxjs",
     "nodekeeper"
-  ]
+  ],
+  "javascript.format.insertSpaceBeforeFunctionParenthesis": true
 }
