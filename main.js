@@ -11,7 +11,7 @@ if (!fileInput) throw new Error('no file input found')
 // @ts-ignore
 const context = canvasEl.getContext("2d")
 const fontSize = 40
-const minScore = 0.1
+const minScore = 0.3
 let /** @type {CocoModel|undefined} */ cocoModel
 let frameCount = 0
 
@@ -112,16 +112,17 @@ async function onVideoSelection (file, url) {
  */
 function onImageSelection (file, url) {
   const imageUrl = url ?? getUrlForFile(file)
-  console.log('on image selection, detecting content from :', imageUrl)
+  console.log('on image selection, detecting content from :', { file, url, imageUrl })
   const image = new Image()
   image.src = imageUrl
+  image.crossOrigin = 'anonymous'
   image.onload = () => {
+    if (!url) URL.revokeObjectURL(imageUrl)
     context.canvas.width = image.naturalWidth
     context.canvas.height = image.naturalHeight
     context.drawImage(image, 0, 0, image.naturalWidth, image.naturalHeight)
     detectCanvasContent()
   }
-  if (!url) URL.revokeObjectURL(imageUrl)
 }
 
 fileInput.addEventListener('change', (/** @type {Event} */ event) => {
