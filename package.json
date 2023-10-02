@@ -25,8 +25,11 @@
   "private": true,
   "scripts": {
     "build": "pnpm mark && echo build success",
+    "check": "pnpm install && echo check success",
     "dev": "nodekeeper cli.js",
     "mark": "unique-mark index.html && echo mark success",
+    "postversion": "git push && git push --tags",
+    "preversion": "pnpm check",
     "start": "node cli.js",
     "start:web": "servor --reload --port=8080"
   },
