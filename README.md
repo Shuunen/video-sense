@@ -13,6 +13,12 @@
 
 [Hosting graciously provided by Netlify](https://www.netlify.app)
 
+## TODO
+
+- [ ] try to use [ffmpeg.js](https://github.com/Kagami/ffmpeg.js) to decode mkv files
+- [ ] add stable image logic (2 canvas A & B & compare Image A & B distance)
+- [ ] bonus : add person detection
+
 ## Samples
 
 - [earth.mp4](https://file-examples.com/wp-content/storage/2017/04/file_example_MP4_1280_10MG.mp4)
