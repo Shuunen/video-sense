@@ -22,6 +22,7 @@
     "@tensorflow/tfjs-backend-cpu": "*",
     "@tensorflow/tfjs-backend-webgl": "*"
   },
+  "private": true,
   "scripts": {
     "build": "pnpm mark && echo build success",
     "dev": "nodekeeper cli.js",
