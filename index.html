@@ -5,20 +5,46 @@
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
   <title>Video Sense</title>
+  <meta name="unique-mark" content="">
   <meta name='viewport' content='width=device-width, initial-scale=1'>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="flex flex-col items-center h-screen justify-center bg-slate-900 text-slate-50">
+<body
+  class="flex relative bg-fixed flex-col leading-8 text-lg items-center min-h-screen py-12 justify-center bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-900 via-blue-950 to-gray-950 text-slate-50">
 
   <div class="grid gap-6 max-w-2xl mx-auto">
-    <h1 class="text-4xl text-center font-thin text-slate-500" style="text-shadow: 2px 4px black;">Video Sense</h1>
-    <canvas class="max-w-full mx-auto" id="canvasEl"></canvas>
-    <input type="file" accept="video/*, image/*" />
-    <div id="loading" class="top-0 left-0 fixed w-screen h-screen flex flex-col items-center justify-center bg-black/50">
+    <p class="flex items-center gap-4 justify-center text-center text-6xl">
+      <span class="mt-2">🎞️</span>
+      <span>👀</span>
+    </p>
+    <h1 class="text-6xl border-b-2 mx-auto pb-6 border-slate-600 text-center font-thin text-slate-300" style="text-shadow: 2px 4px black;">Video Sense
+    </h1>
+    <p class="">
+      Welcome to Video Sense, a simple web app that uses machine learning to detect objects in photos and videos.
+    </p>
+    <ul class="ml-4">
+      <li>1. load the model</li>
+      <li>2. upload a video or image file or enter a remote file URL</li>
+    </ul>
+    <button class="bg-slate-800 hover:scale-110 transition-all mx-auto px-4 py-2 rounded border-2 border-slate-500 cursor-pointer" type="button">Load
+      model</button>
+    <canvas style="display: none;" class="max-w-full mx-auto" id="canvasEl"></canvas>
+    <form style="display: none;" class="flex flex-col items-center justify-center gap-6" onsubmit="return false;">
+      <input type="file" accept="video/*, image/*" />
+      <p class="text-center opacity-50 italic">--- or ---</p>
+      <label>
+        Remote file :
+        <input class="text-black px-2 border border-slate-500 rounded-sm bg-slate-200 py-0.5" type="text"
+          placeholder="https://example.com/video.mp4" />
+      </label>
+    </form>
+    <div id="loading" style="display: none;" class="top-0 left-0  fixed w-screen h-screen flex flex-col items-center justify-center bg-black/50">
       <img src="assets/loading.svg" />
     </div>
   </div>
+
+  <span id="unique-mark" class="absolute w-full bottom-0 text-center text-sm font-mono opacity-30 pb-4">unique-mark</span>
 
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"> </script>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"> </script>

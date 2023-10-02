@@ -5,12 +5,19 @@ import { sleep } from "https://cdn.skypack.dev/shuutils@7.3.2"
 // @ts-ignore
 import getVideoFrames from "https://deno.land/x/get_video_frames@v0.0.10/mod.js"
 
-const loadingElement = document.querySelector('div#loading') ?? document.createElement('div')
+const loadModelButton = document.querySelector('button')
+if (!loadModelButton) throw new Error('no load model button found')
+const /** @type HTMLDivElement|null */ loadingElement = document.querySelector('div#loading')
+const formElement = document.querySelector('form')
+if (!formElement) throw new Error('no form element found')
+if (!loadingElement) throw new Error('no loading element found')
 const fileInput = document.querySelector('input[type="file"]')
 if (!fileInput) throw new Error('no file input found')
+const textInput = document.querySelector('input[type="text"]')
+if (!textInput) throw new Error('no text input found')
 // @ts-ignore
 const context = canvasEl.getContext("2d")
-const fontSize = 40
+let fontSize = 40
 const minScore = 0.3
 let /** @type {CocoModel|undefined} */ cocoModel
 let frameCount = 0
@@ -22,6 +29,7 @@ let frameCount = 0
 function onFrameConfig (config) {
   console.log("on frame config", config)
   frameCount = 0
+  context.canvas.style.display = '' // don't toggle, just make sure it's visible
   context.canvas.width = config.codedWidth
   context.canvas.height = config.codedHeight
 }
@@ -42,11 +50,11 @@ function drawPrediction (prediction) {
   const height = fontSize * 1.1
   const width = text.length * fontSize / 1.9
   // draw background for the text
-  context.fillStyle = 'green'
-  context.fillRect(x - context.lineWidth / 2, y - height + context.lineWidth, width, height)
+  context.fillStyle = 'rgba(0, 80, 0, 0.6)'
+  context.fillRect(x - context.lineWidth / 2, y - context.lineWidth - 2, width, height)
   // draw text
   context.fillStyle = 'white'
-  context.fillText(text, x + context.lineWidth, y)
+  context.fillText(text, x + context.lineWidth, y + context.lineWidth + fontSize / 2)
 }
 
 /**
@@ -54,7 +62,9 @@ function drawPrediction (prediction) {
  */
 function onPredictions (predictions) {
   console.log('on predictions :', (predictions.map(p => p.class) || ['nothing']).join(', '))
+  fontSize = Math.round(context.canvas.height / 10)
   context.font = fontSize + 'px Arial'
+  console.log('fontSize', fontSize)
   predictions.forEach(drawPrediction)
 }
 
@@ -118,11 +128,30 @@ function onImageSelection (file, url) {
   image.crossOrigin = 'anonymous'
   image.onload = () => {
     if (!url) URL.revokeObjectURL(imageUrl)
+    context.canvas.style.display = '' // don't toggle, just make sure it's visible
     context.canvas.width = image.naturalWidth
     context.canvas.height = image.naturalHeight
     context.drawImage(image, 0, 0, image.naturalWidth, image.naturalHeight)
     detectCanvasContent()
   }
+}
+/**
+ * Show an element if hidden, hide it if shown
+ * @param {HTMLElement|null} element 
+ */
+function toggleDisplay (element) {
+  if (!element) return console.warn('toggleDisplay : element is null')
+  element.style.display = element.style.display === 'none' ? '' : 'none'
+}
+
+async function loadCoco () {
+  // @ts-ignore
+  cocoModel = await cocoSsd.load()
+  console.log('coco model loaded')
+  // onImageSelection(undefined, 'https://i.imgflip.com/80xkm1.jpg')
+  onVideoSelection(undefined, 'https://i.imgur.com/NUyttbn.mp4')
+  toggleDisplay(loadingElement)
+  toggleDisplay(formElement)
 }
 
 fileInput.addEventListener('change', (/** @type {Event} */ event) => {
@@ -135,10 +164,17 @@ fileInput.addEventListener('change', (/** @type {Event} */ event) => {
   else throw new Error('unsupported file type')
 })
 
-// @ts-ignore
-cocoSsd.load().then((/** @type CocoModel */ model) => {
-  cocoModel = model
-  console.log('coco model loaded')
+textInput.addEventListener('change', (/** @type {Event} */ event) => {
   // @ts-ignore
-  loadingElement.style.display = 'none'
+  const text = event.target?.value
+  console.log('text selected :', text)
+  if (!text) throw new Error('no text selected')
+  onImageSelection(undefined, text)
+})
+
+loadModelButton.addEventListener('click', async () => {
+  toggleDisplay(loadingElement)
+  toggleDisplay(loadModelButton)
+  await sleep(500)
+  await loadCoco()
 })

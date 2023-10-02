@@ -23,7 +23,9 @@
     "@tensorflow/tfjs-backend-webgl": "*"
   },
   "scripts": {
+    "build": "pnpm mark && echo build success",
     "dev": "nodekeeper cli.js",
+    "mark": "unique-mark index.html && echo mark success",
     "start": "node cli.js",
     "start:web": "servor --reload --port=8080"
   },
