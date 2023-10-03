@@ -1,5 +1,6 @@
 # Video Sense
 
+[![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/Shuunen/video-sense?style=flat)](https://codeclimate.com/github/Shuunen/video-sense)
 [![Project license](https://img.shields.io/github/license/Shuunen/video-sense.svg?color=informational)](https://github.com/Shuunen/video-sense/blob/master/LICENSE)
 [![Website Up](https://img.shields.io/website/https/what-now.netlify.app.svg)](https://video-sense.netlify.app)
 
@@ -30,4 +31,11 @@
 ## Thanks
 
 - [Favicon.io](https://favicon.io/) : for the "VS" favicon rounded #FFF & #50A with Kdam font size 100
+- [Github](https://github.com) : for all their great work year after year, pushing OSS forward
 - [Loading.io](https://loading.io/) : for the loading animation
+- [Netlify](https://netlify.com) : awesome company that offers free CI & hosting for OSS projects
+- [Repo-checker](https://github.com/Shuunen/repo-checker) : eslint cover /src code and this tool the rest ^^
+- [Servor](https://github.com/lukejacksonn/servor) : dependency free dev server for single page app development
+- [Shields.io](https://shields.io) : for the nice badges on top of this readme
+- [Shuutils](https://github.com/Shuunen/shuutils) : collection of pure JS utils
+- [TailwindCss](https://tailwindcss.com) : awesome lib to produce maintainable style
