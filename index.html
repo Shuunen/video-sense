@@ -8,6 +8,7 @@
   <meta name="unique-mark" content="">
   <meta name='viewport' content='width=device-width, initial-scale=1'>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
 </head>
 
 <body
@@ -18,31 +19,30 @@
       <span class="mt-2">🎞️</span>
       <span>👀</span>
     </p>
-    <h1 class="text-6xl border-b-2 mx-auto pb-6 border-slate-600 text-center font-thin text-slate-300"
-      style="text-shadow: 2px 4px black;">Video Sense
+    <h1 class="text-6xl border-b-2 mx-auto pb-6 border-slate-600 text-center font-thin text-slate-300" style="text-shadow: 2px 4px black;">Video Sense
     </h1>
-    <p class="whitespace-pre">
-      Welcome to Video Sense, a simple web app that uses machine learning to detect objects in photos and videos.
-      Upload a video or image file or enter a remote file URL
+    <p>
+      Welcome to Video Sense, a simple web app that uses COCO SSD machine learning to detect objects in photos and videos. Upload a mp4 video,
+      an image file or enter a remote file URL to get started.
     </p>
     <canvas style="display: none;" class="max-w-full mx-auto" id="canvasEl"></canvas>
-    <form class="flex flex-col items-center justify-center gap-6" onsubmit="return false;">
+    <form class="flex flex-col items-center justify-center gap-4 w-full" onsubmit="return false;">
       <input type="file" accept="video/*, image/*" />
       <p class="text-center opacity-50 italic">--- or ---</p>
-      <label>
+      <label class="flex gap-2 w-4/5">
         Remote file :
-        <input class="text-black px-2 border border-slate-500 rounded-sm bg-slate-200 py-0.5" type="text"
+        <input class="text-black grow px-2 border border-slate-500 rounded-sm bg-slate-200 py-0.5" type="text"
           placeholder="https://example.com/video.mp4" />
       </label>
     </form>
-    <div id="loading"
-      class="top-0 left-0  fixed w-screen h-screen flex flex-col items-center justify-center bg-black/50">
+    <div id="loading" class="top-0 left-0  fixed w-screen h-screen flex flex-col items-center justify-center bg-black/50">
       <img src="assets/loading.svg" />
     </div>
   </div>
 
-  <span id="unique-mark"
-    class="absolute w-full bottom-0 text-center text-sm font-mono opacity-30 pb-4">unique-mark</span>
+  <span id="unique-mark" class="absolute w-full bottom-0 text-center text-sm font-mono opacity-30 pb-4">unique-mark</span>
+
+  <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
 
   <script type="module" src='main.js'></script>
 

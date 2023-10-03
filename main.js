@@ -6,7 +6,8 @@ import { sleep } from "https://cdn.skypack.dev/shuutils@7.3.2"
 import getVideoFrames from "https://deno.land/x/get_video_frames@v0.0.10/mod.js"
 
 const worker = new Worker('worker.js', { type: 'module' })
-
+// @ts-expect-error Notyf is globally defined
+const toast = new Notyf()
 const /** @type HTMLDivElement|null */ loadingElement = document.querySelector('div#loading')
 const formElement = document.querySelector('form')
 if (!formElement) throw new Error('no form element found')
@@ -20,6 +21,14 @@ const context = canvasEl.getContext("2d")
 let fontSize = 40
 const minScore = 0.3
 let frameCount = 0
+
+/**
+ * @param {ErrorEvent|PromiseRejectionEvent} error
+ */
+function onError (error) {
+  const message = error instanceof ErrorEvent ? error.message : String(error.reason.message)
+  toast.error(message)
+}
 
 /**
  * @param {VideoFrameConfig} config the video frame config
@@ -57,7 +66,7 @@ function drawPrediction (prediction) {
 }
 
 /**
- * @param {CocoPrediction[]} predictions 
+ * @param {CocoPrediction[]} predictions
  */
 function onPredictions (predictions) {
   console.log('on predictions :', (predictions.map(p => p.class) || ['nothing']).join(', '))
@@ -106,6 +115,8 @@ function getUrlForFile (file) {
  * @returns {Promise<void>}
  */
 async function onVideoSelection (file, url) {
+  const path = url ?? file?.name ?? ''
+  if (!isVideoExtensionHandled(path)) throw new Error('un-handled video extension : ' + path.split('.').pop())
   const videoUrl = url ?? getUrlForFile((file))
   console.log('on video selection, extracting frames from :', videoUrl)
   await getVideoFrames({ videoUrl, onFrame, onConfig: onFrameConfig, onFinish: onFrameFinish, })
@@ -118,6 +129,8 @@ async function onVideoSelection (file, url) {
  * @returns {void}
  */
 function onImageSelection (file, url) {
+  const path = url ?? file?.name ?? ''
+  if (!isImageExtensionHandled(path)) throw new Error('un-handled image extension : ' + path.split('.').pop())
   const imageUrl = url ?? getUrlForFile(file)
   console.log('on image selection, detecting content from :', { file, url, imageUrl })
   const image = new Image()
@@ -132,20 +145,37 @@ function onImageSelection (file, url) {
     detectCanvasContent()
   }
 }
+
 /**
  * Show an element if hidden, hide it if shown
- * @param {HTMLElement|null} element 
+ * @param {HTMLElement|null} element
  */
 function toggleDisplay (element) {
   if (!element) return console.warn('toggleDisplay : element is null')
   element.style.display = element.style.display === 'none' ? '' : 'none'
 }
+/**
+ * @param {string} path like 'https://i.imgur.com/NUyttbn.mp4' or 'super-123.jpg'
+ */
+function isVideoExtensionHandled (path) {
+  return /\.(mp4)$/i.test(path)
+}
 
+/**
+ * @param {string} path like 'https://i.imgur.com/NUyttbn.mp4' or 'super-123.jpg'
+ */
+function isImageExtensionHandled (path) {
+  return /\.(jpg|jpeg|png|gif|bmp)$/i.test(path)
+}
+
+/****************************
+ *      Event listeners     *
+ ****************************/
 
 fileInput.addEventListener('change', (/** @type {Event} */ event) => {
-  console.log('file selected :', event)
   // @ts-ignore
-  const file = event.target?.files[0]
+  const /** @type File */ file = event.target?.files[0]
+  console.log('file selected :', file)
   if (!file) throw new Error('no file selected')
   if (file.type.startsWith('video')) onVideoSelection(file)
   else if (file.type.startsWith('image')) onImageSelection(file)
@@ -157,12 +187,15 @@ textInput.addEventListener('change', (/** @type {Event} */ event) => {
   const text = event.target?.value
   console.log('text selected :', text)
   if (!text) throw new Error('no text selected')
-  onImageSelection(undefined, text)
+  if (isImageExtensionHandled(text)) onImageSelection(undefined, text)
+  else if (isVideoExtensionHandled(text)) onVideoSelection(undefined, text)
+  else throw new Error('unsupported extension : ' + text.split('.').pop())
 })
 
 worker.addEventListener('message', async (/** @type {MessageEvent} */ event) => {
   console.log('message from worker :', event.data)
   if (event.data.type === 'ready') {
+    toast.success('Coco ready, loading example video...')
     toggleDisplay(loadingElement)
     onVideoSelection(undefined, 'https://i.imgur.com/NUyttbn.mp4')
   }
@@ -171,3 +204,7 @@ worker.addEventListener('message', async (/** @type {MessageEvent} */ event) => 
   }
   else console.warn('unknown message type :', event.data.type)
 })
+
+window.addEventListener('error', (/** @type {ErrorEvent} */ error) => onError(error))
+
+window.addEventListener('unhandledrejection', (/** @type {PromiseRejectionEvent} */ error) => onError(error))

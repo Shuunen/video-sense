@@ -2,7 +2,8 @@
   "cSpell.words": [
     "demux",
     "mkvdemuxjs",
-    "nodekeeper"
+    "nodekeeper",
+    "Notyf"
   ],
   "javascript.format.insertSpaceBeforeFunctionParenthesis": true
 }
