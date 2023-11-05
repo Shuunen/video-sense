@@ -7,7 +7,7 @@ settings:
 dependencies:
   '@tensorflow-models/coco-ssd':
     specifier: '2.2'
-    version: 2.2.3(@tensorflow/tfjs-converter@4.11.0)(@tensorflow/tfjs-core@4.11.0)
+    version: 2.2.3(@tensorflow/tfjs-converter@4.12.0)(@tensorflow/tfjs-core@4.11.0)
   '@tensorflow/tfjs-backend-cpu':
     specifier: '*'
     version: 4.11.0(@tensorflow/tfjs-core@4.11.0)
@@ -26,8 +26,8 @@ devDependencies:
     specifier: '1'
     version: 1.0.1
   repo-check:
-    specifier: '1.33'
-    version: 1.33.0
+    specifier: '1.34'
+    version: 1.34.0
   servor:
     specifier: '4'
     version: 4.0.2
@@ -111,13 +111,13 @@ packages:
       fastq: 1.15.0
     dev: true
 
-  /@tensorflow-models/coco-ssd@2.2.3(@tensorflow/tfjs-converter@4.11.0)(@tensorflow/tfjs-core@4.11.0):
+  /@tensorflow-models/coco-ssd@2.2.3(@tensorflow/tfjs-converter@4.12.0)(@tensorflow/tfjs-core@4.11.0):
     resolution: {integrity: sha512-iCLGktG/XhHbP6h2FWxqCKMp/Px0lCp6MZU1fjNhjDHeaWEC9G7S7cZrnPXsfH+NewCM53YShlrHnknxU3SQig==}
     peerDependencies:
       '@tensorflow/tfjs-converter': ^4.10.0
       '@tensorflow/tfjs-core': ^4.10.0
     dependencies:
-      '@tensorflow/tfjs-converter': 4.11.0(@tensorflow/tfjs-core@4.11.0)
+      '@tensorflow/tfjs-converter': 4.12.0(@tensorflow/tfjs-core@4.11.0)
       '@tensorflow/tfjs-core': 4.11.0
     dev: false
 
@@ -169,10 +169,10 @@ packages:
       seedrandom: 3.0.5
     dev: false
 
-  /@tensorflow/tfjs-converter@4.11.0(@tensorflow/tfjs-core@4.11.0):
-    resolution: {integrity: sha512-j2JEVwkqh+pyin+sxUiNUG7QOIU2S0+5SzN8LFXHlR90/bPvC2qiaaSPYdGG/BYidFc27QCHD3obBXrb1EE/ow==}
+  /@tensorflow/tfjs-converter@4.12.0(@tensorflow/tfjs-core@4.11.0):
+    resolution: {integrity: sha512-+UDwSO4PhobfmdqZTQQ41vvtEPMuFwZKEEcuS7zhydLK3L7Ro9+ak+rIrlWAHHrTS8knepincW1EpyDDjIkmNw==}
     peerDependencies:
-      '@tensorflow/tfjs-core': 4.11.0
+      '@tensorflow/tfjs-core': 4.12.0
     dependencies:
       '@tensorflow/tfjs-core': 4.11.0
     dev: false
@@ -1084,8 +1084,8 @@ packages:
     resolution: {integrity: sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==}
     dev: false
 
-  /repo-check@1.33.0:
-    resolution: {integrity: sha512-PhoLWdABA/YkUfo4LH1TNoH0aZG/ELbVt14IF5aRdwQLQFCALI9PX/NlXDcnhf7UsLKdI2Dduhc1rCQwmJDjqA==}
+  /repo-check@1.34.0:
+    resolution: {integrity: sha512-jdOkk9EEYvpTOSiKha7MKdnymQA53+Tjxb7u5kFWMTO4iWvA4R4RUDAX6gXZ0E8+7ZGh8CLnmL1tlM93swnOgg==}
     hasBin: true
     dependencies:
       arg: 5.0.2
