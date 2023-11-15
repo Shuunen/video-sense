@@ -7,7 +7,7 @@ settings:
 dependencies:
   '@tensorflow-models/coco-ssd':
     specifier: '2.2'
-    version: 2.2.3(@tensorflow/tfjs-converter@4.12.0)(@tensorflow/tfjs-core@4.11.0)
+    version: 2.2.3(@tensorflow/tfjs-converter@4.13.0)(@tensorflow/tfjs-core@4.11.0)
   '@tensorflow/tfjs-backend-cpu':
     specifier: '*'
     version: 4.11.0(@tensorflow/tfjs-core@4.11.0)
@@ -18,8 +18,8 @@ dependencies:
     specifier: '4.13'
     version: 4.13.0(seedrandom@3.0.5)
   shuutils:
-    specifier: '7.3'
-    version: 7.3.2
+    specifier: '7.4'
+    version: 7.4.0
 
 devDependencies:
   '@the2ndfloorguy/nodekeeper':
@@ -111,13 +111,13 @@ packages:
       fastq: 1.15.0
     dev: true
 
-  /@tensorflow-models/coco-ssd@2.2.3(@tensorflow/tfjs-converter@4.12.0)(@tensorflow/tfjs-core@4.11.0):
+  /@tensorflow-models/coco-ssd@2.2.3(@tensorflow/tfjs-converter@4.13.0)(@tensorflow/tfjs-core@4.11.0):
     resolution: {integrity: sha512-iCLGktG/XhHbP6h2FWxqCKMp/Px0lCp6MZU1fjNhjDHeaWEC9G7S7cZrnPXsfH+NewCM53YShlrHnknxU3SQig==}
     peerDependencies:
       '@tensorflow/tfjs-converter': ^4.10.0
       '@tensorflow/tfjs-core': ^4.10.0
     dependencies:
-      '@tensorflow/tfjs-converter': 4.12.0(@tensorflow/tfjs-core@4.11.0)
+      '@tensorflow/tfjs-converter': 4.13.0(@tensorflow/tfjs-core@4.11.0)
       '@tensorflow/tfjs-core': 4.11.0
     dev: false
 
@@ -169,10 +169,10 @@ packages:
       seedrandom: 3.0.5
     dev: false
 
-  /@tensorflow/tfjs-converter@4.12.0(@tensorflow/tfjs-core@4.11.0):
-    resolution: {integrity: sha512-+UDwSO4PhobfmdqZTQQ41vvtEPMuFwZKEEcuS7zhydLK3L7Ro9+ak+rIrlWAHHrTS8knepincW1EpyDDjIkmNw==}
+  /@tensorflow/tfjs-converter@4.13.0(@tensorflow/tfjs-core@4.11.0):
+    resolution: {integrity: sha512-jA2/IigBXReZHS8Bo308HG7oVzsNPnPgSYfXneRXnxUz+WfcIPkJ6zp48KERZSPja8vOO5eNG4lsUkQpbtiyyw==}
     peerDependencies:
-      '@tensorflow/tfjs-core': 4.12.0
+      '@tensorflow/tfjs-core': 4.13.0
     dependencies:
       '@tensorflow/tfjs-core': 4.11.0
     dev: false
@@ -1167,6 +1167,14 @@ packages:
     hasBin: true
     dependencies:
       tiny-glob: 0.2.9
+    dev: true
+
+  /shuutils@7.4.0:
+    resolution: {integrity: sha512-XlNT7tPeVUgB4S2YNDJYLRXdcvN7r182b/TP46J2w17xzoA33rKH17296N6gaZJiYYS4/WLqfNZl/wghCh1LNw==}
+    hasBin: true
+    dependencies:
+      tiny-glob: 0.2.9
+    dev: false
 
   /signal-exit@3.0.7:
     resolution: {integrity: sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==}
