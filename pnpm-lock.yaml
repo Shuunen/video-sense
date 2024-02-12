@@ -7,7 +7,7 @@ settings:
 dependencies:
   '@tensorflow-models/coco-ssd':
     specifier: '2.2'
-    version: 2.2.3(@tensorflow/tfjs-converter@4.16.0)(@tensorflow/tfjs-core@4.11.0)
+    version: 2.2.3(@tensorflow/tfjs-converter@4.17.0)(@tensorflow/tfjs-core@4.11.0)
   '@tensorflow/tfjs-backend-cpu':
     specifier: '*'
     version: 4.11.0(@tensorflow/tfjs-core@4.11.0)
@@ -26,8 +26,8 @@ devDependencies:
     specifier: '1'
     version: 1.0.1
   repo-check:
-    specifier: '1.34'
-    version: 1.34.0
+    specifier: '1.35'
+    version: 1.35.0
   servor:
     specifier: '4'
     version: 4.0.2
@@ -111,13 +111,13 @@ packages:
       fastq: 1.15.0
     dev: true
 
-  /@tensorflow-models/coco-ssd@2.2.3(@tensorflow/tfjs-converter@4.16.0)(@tensorflow/tfjs-core@4.11.0):
+  /@tensorflow-models/coco-ssd@2.2.3(@tensorflow/tfjs-converter@4.17.0)(@tensorflow/tfjs-core@4.11.0):
     resolution: {integrity: sha512-iCLGktG/XhHbP6h2FWxqCKMp/Px0lCp6MZU1fjNhjDHeaWEC9G7S7cZrnPXsfH+NewCM53YShlrHnknxU3SQig==}
     peerDependencies:
       '@tensorflow/tfjs-converter': ^4.10.0
       '@tensorflow/tfjs-core': ^4.10.0
     dependencies:
-      '@tensorflow/tfjs-converter': 4.16.0(@tensorflow/tfjs-core@4.11.0)
+      '@tensorflow/tfjs-converter': 4.17.0(@tensorflow/tfjs-core@4.11.0)
       '@tensorflow/tfjs-core': 4.11.0
     dev: false
 
@@ -169,10 +169,10 @@ packages:
       seedrandom: 3.0.5
     dev: false
 
-  /@tensorflow/tfjs-converter@4.16.0(@tensorflow/tfjs-core@4.11.0):
-    resolution: {integrity: sha512-gd8dHl9tqEPQOHZLAUza713nKr42rpvUXrtm7yUhk10THvJT6TXe9Q2AJKmni8J3vfR+ghsCh77F8D4RbShx1Q==}
+  /@tensorflow/tfjs-converter@4.17.0(@tensorflow/tfjs-core@4.11.0):
+    resolution: {integrity: sha512-qFxIjPfomCuTrYxsFjtKbi3QfdmTTCWo+RvqD64oCMS0sjp7sUDNhJyKDoLx6LZhXlwXpHIVDJctLMRMwet0Zw==}
     peerDependencies:
-      '@tensorflow/tfjs-core': 4.16.0
+      '@tensorflow/tfjs-core': 4.17.0
     dependencies:
       '@tensorflow/tfjs-core': 4.11.0
     dev: false
@@ -1088,12 +1088,12 @@ packages:
     resolution: {integrity: sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==}
     dev: false
 
-  /repo-check@1.34.0:
-    resolution: {integrity: sha512-jdOkk9EEYvpTOSiKha7MKdnymQA53+Tjxb7u5kFWMTO4iWvA4R4RUDAX6gXZ0E8+7ZGh8CLnmL1tlM93swnOgg==}
+  /repo-check@1.35.0:
+    resolution: {integrity: sha512-EESfKRz7d/esJIqk/Xd5vcDi8CX+f7Wdrl+BqgtUIZoFGUHWWxY+yVb14Uyzmq+hUMipQDZiOHCIFGWYZCOQ5g==}
     hasBin: true
     dependencies:
       arg: 5.0.2
-      shuutils: 7.3.2
+      shuutils: 7.7.0
       sort-json: 2.0.1
     dev: true
 
@@ -1166,19 +1166,11 @@ packages:
     resolution: {integrity: sha512-KiKBS8AnWGEyLzofFfmvKwpdPzqiy16LvQfK3yv/fVH7Bj13/wl3JSR1J+rfgRE9q7xUJK4qvgS8raSOeLUehw==}
     dev: false
 
-  /shuutils@7.3.2:
-    resolution: {integrity: sha512-HiX6I+r18wQl427FQt4nT0msgMFcNb8NccwunjAUplX1ql5lQTJKMOSCgsFPSBmAxHzevaxM27ePg4t7ktgLJw==}
-    hasBin: true
-    dependencies:
-      tiny-glob: 0.2.9
-    dev: true
-
   /shuutils@7.7.0:
     resolution: {integrity: sha512-ultnGsBIR9zdHCFDxqWO9YlUBfDa5+oXSi5Gi45o5ne30cNunDzr6sKRntks73VhmgBXQG4IhlbxW3t3cIpfLw==}
     hasBin: true
     dependencies:
       tiny-glob: 0.2.9
-    dev: false
 
   /signal-exit@3.0.7:
     resolution: {integrity: sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==}
