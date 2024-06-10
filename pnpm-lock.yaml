@@ -21,8 +21,8 @@ importers:
         specifier: '4.20'
         version: 4.20.0(seedrandom@3.0.5)
       shuutils:
-        specifier: '7.7'
-        version: 7.7.0
+        specifier: '8.0'
+        version: 8.0.0
     devDependencies:
       '@the2ndfloorguy/nodekeeper':
         specifier: '1'
@@ -682,6 +682,10 @@ packages:
 
   shuutils@7.7.0:
     resolution: {integrity: sha512-ultnGsBIR9zdHCFDxqWO9YlUBfDa5+oXSi5Gi45o5ne30cNunDzr6sKRntks73VhmgBXQG4IhlbxW3t3cIpfLw==}
+    hasBin: true
+
+  shuutils@8.0.0:
+    resolution: {integrity: sha512-dXfLqTOxYh1eugoidZ/5TyuDWqd7pfPaUFV1WzPvDs53UPya9BYifN8lc2YaDRzOXAcGMeMjpivOy4czUNduJw==}
     hasBin: true
 
   signal-exit@3.0.7:
@@ -1403,6 +1407,10 @@ snapshots:
   set-blocking@2.0.0: {}
 
   shuutils@7.7.0:
+    dependencies:
+      tiny-glob: 0.2.9
+
+  shuutils@8.0.0:
     dependencies:
       tiny-glob: 0.2.9
 
