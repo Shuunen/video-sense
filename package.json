@@ -10,7 +10,7 @@
   "dependencies": {
     "@tensorflow-models/coco-ssd": "2.2",
     "@tensorflow/tfjs-node": "4.20",
-    "shuutils": "8.0"
+    "shuutils": "8.1"
   },
   "description": "video & image detection",
   "devDependencies": {
