@@ -28,8 +28,8 @@ importers:
         specifier: '1'
         version: 1.0.1
       repo-check:
-        specifier: '1.36'
-        version: 1.36.0
+        specifier: '1.37'
+        version: 1.37.1
       servor:
         specifier: '4'
         version: 4.0.2
@@ -629,8 +629,8 @@ packages:
   regenerator-runtime@0.13.11:
     resolution: {integrity: sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==}
 
-  repo-check@1.36.0:
-    resolution: {integrity: sha512-U0BmkVwNNw6O2FHPy7p0fyMy1qdHB/xNxRX9U6lsKgd8cMUF3SSgFiyR+tXEaUqEb/3WLaV+SON4Jizj0dw+0g==}
+  repo-check@1.37.1:
+    resolution: {integrity: sha512-aiLpMAv4knJ2aSykWQPc09k71bet8QTEpjuGHBLreFOHWuYPdd2hcMOfwlhh1EoTnFLLSyq7+hRB8IAOElTPag==}
     hasBin: true
 
   require-directory@2.1.1:
@@ -679,10 +679,6 @@ packages:
 
   set-blocking@2.0.0:
     resolution: {integrity: sha512-KiKBS8AnWGEyLzofFfmvKwpdPzqiy16LvQfK3yv/fVH7Bj13/wl3JSR1J+rfgRE9q7xUJK4qvgS8raSOeLUehw==}
-
-  shuutils@8.0.0:
-    resolution: {integrity: sha512-dXfLqTOxYh1eugoidZ/5TyuDWqd7pfPaUFV1WzPvDs53UPya9BYifN8lc2YaDRzOXAcGMeMjpivOy4czUNduJw==}
-    hasBin: true
 
   shuutils@8.1.0:
     resolution: {integrity: sha512-SWco5obeba5ZtL4WVyPv6TS90HXSJQJPR9gY1U4E+ceKDaZ3Buq6UMaCjALp4u2g4uy6SS49LwP0TFFLAPCYGg==}
@@ -1364,10 +1360,10 @@ snapshots:
 
   regenerator-runtime@0.13.11: {}
 
-  repo-check@1.36.0:
+  repo-check@1.37.1:
     dependencies:
       arg: 5.0.2
-      shuutils: 8.0.0
+      shuutils: 8.1.0
       sort-json: 2.0.1
 
   require-directory@2.1.1: {}
@@ -1405,10 +1401,6 @@ snapshots:
   servor@4.0.2: {}
 
   set-blocking@2.0.0: {}
-
-  shuutils@8.0.0:
-    dependencies:
-      tiny-glob: 0.2.9
 
   shuutils@8.1.0:
     dependencies:
