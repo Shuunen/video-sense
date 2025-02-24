@@ -15,7 +15,7 @@
   "description": "video & image detection",
   "devDependencies": {
     "@the2ndfloorguy/nodekeeper": "1",
-    "repo-check": "1.41",
+    "repo-check": "1.42",
     "servor": "4",
     "tailwindcss": "4"
   },
