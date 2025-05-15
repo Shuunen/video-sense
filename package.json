@@ -20,7 +20,7 @@
     "tailwindcss": "4"
   },
   "engines": {
-    "node": "22.15.0"
+    "node": "22.15.1"
   },
   "files": [
     "*.js"
